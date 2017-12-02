@@ -1,0 +1,28 @@
+﻿  UI.cpp
+  SpriteComponent.cpp
+c:\users\anders\desktop\kod-referenser\anders_andersson_componentbasedgame\anders_andersson_componentbasedgame\cleaned\entitycomponent_project\spritecomponent.cpp(21): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  resources.cpp
+  PhysicsComponent.cpp
+  MovableComponent.cpp
+c:\users\anders\desktop\kod-referenser\anders_andersson_componentbasedgame\anders_andersson_componentbasedgame\cleaned\entitycomponent_project\movablecomponent.cpp(33): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  main.cpp
+  Entity.cpp
+  Core.cpp
+c:\users\anders\desktop\kod-referenser\anders_andersson_componentbasedgame\anders_andersson_componentbasedgame\cleaned\entitycomponent_project\core.cpp(1): warning C4005: 'SFML_DYNAMIC': macro redefinition
+  c:\users\anders\desktop\kod-referenser\anders_andersson_componentbasedgame\anders_andersson_componentbasedgame\cleaned\entitycomponent_project\core.cpp(1): note: command-line arguments:  see previous definition of 'SFML_DYNAMIC'
+c:\users\anders\desktop\kod-referenser\anders_andersson_componentbasedgame\anders_andersson_componentbasedgame\cleaned\entitycomponent_project\core.cpp(46): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+c:\users\anders\desktop\kod-referenser\anders_andersson_componentbasedgame\anders_andersson_componentbasedgame\cleaned\entitycomponent_project\core.cpp(112): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\anders\desktop\kod-referenser\anders_andersson_componentbasedgame\anders_andersson_componentbasedgame\cleaned\entitycomponent_project\core.cpp(121): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\anders\desktop\kod-referenser\anders_andersson_componentbasedgame\anders_andersson_componentbasedgame\cleaned\entitycomponent_project\core.cpp(122): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\anders\desktop\kod-referenser\anders_andersson_componentbasedgame\anders_andersson_componentbasedgame\cleaned\entitycomponent_project\core.cpp(186): warning C4018: '<=': signed/unsigned mismatch
+c:\users\anders\desktop\kod-referenser\anders_andersson_componentbasedgame\anders_andersson_componentbasedgame\cleaned\entitycomponent_project\core.cpp(259): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\anders\desktop\kod-referenser\anders_andersson_componentbasedgame\anders_andersson_componentbasedgame\cleaned\entitycomponent_project\core.cpp(263): warning C4018: '<': signed/unsigned mismatch
+c:\users\anders\desktop\kod-referenser\anders_andersson_componentbasedgame\anders_andersson_componentbasedgame\cleaned\entitycomponent_project\core.cpp(296): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\anders\desktop\kod-referenser\anders_andersson_componentbasedgame\anders_andersson_componentbasedgame\cleaned\entitycomponent_project\core.cpp(305): warning C4018: '<': signed/unsigned mismatch
+c:\users\anders\desktop\kod-referenser\anders_andersson_componentbasedgame\anders_andersson_componentbasedgame\cleaned\entitycomponent_project\core.cpp(312): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  ColisionComponent.cpp
+  ClickableComponent.cpp
+  Generating Code...
+c:\users\anders\desktop\kod-referenser\anders_andersson_componentbasedgame\anders_andersson_componentbasedgame\cleaned\entitycomponent_project\resources.cpp(183): warning C4715: 'resources::getFont': not all control paths return a value
+c:\users\anders\desktop\kod-referenser\anders_andersson_componentbasedgame\anders_andersson_componentbasedgame\cleaned\entitycomponent_project\resources.cpp(152): warning C4715: 'resources::getImage': not all control paths return a value
+LINK : fatal error LNK1158: cannot run 'C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\rc.exe'
