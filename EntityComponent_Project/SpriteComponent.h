@@ -1,6 +1,6 @@
 #pragma once
 
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
 #include "Component.h"
 
 class SpriteComponent : public VisibleComponent
@@ -12,9 +12,9 @@ public:
 	void update(float deltaTime, sf::RenderWindow* window);
 	void draw(sf::RenderWindow& target);
 
-	sf::Vector2f size() const { return _sprite.GetSize(); }
+	sf::Vector2f size() const { return (sf::Vector2f)_sprite.getTexture()->getSize(); }
 
-	void setImage(const sf::Image& source) { _sprite.SetImage(source);}
+	void setImage(const sf::Texture& source) { _sprite.setTexture(source);}
 	void changeImageCenterToOrigin(int imgW, int imgH);
 	void rotateImage(float angle);
 

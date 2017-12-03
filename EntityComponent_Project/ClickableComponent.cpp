@@ -15,18 +15,19 @@ void ClickableComponent::update(float deltaTime, sf::RenderWindow* app)
 	if ( _parent )
 	{
 		sf::Event event;
-		const sf::Input& input = app->GetInput();
+		//const sf::Mouse& input = sf::Mouse();
 		SpriteComponent* sprComp = dynamic_cast<SpriteComponent*>(_parent->get("SpriteComponent"));
 
-		while(app->GetEvent(event))
+		while(app->pollEvent(event))
 		{
-				if(event.Type == sf::Event::MouseButtonPressed)
+				if(event.type == sf::Event::MouseButtonPressed)
 					{
-						if(event.MouseButton.Button == sf::Mouse::Left)
+						if(event.mouseButton.button == sf::Mouse::Left)
 						{
-							if(input.GetMouseX() > _parent->position().x && input.GetMouseX() < (_parent->position().x+sprComp->getSpriteWidth()))
+				
+							if(sf::Mouse::getPosition(*app).x > _parent->position().x && sf::Mouse::getPosition(*app).x < (_parent->position().x+sprComp->getSpriteWidth()))
 							{
-								if(input.GetMouseY() > _parent->position().y && input.GetMouseY() < (_parent->position().y+sprComp->getSpriteHeight()))
+								if(sf::Mouse::getPosition(*app).y > _parent->position().y && sf::Mouse::getPosition(*app).y < (_parent->position().y+sprComp->getSpriteHeight()))
 								{
 				
 											clicked = true;

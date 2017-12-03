@@ -38,14 +38,15 @@ Core::Core(void)
 }
 void Core::initialize() 
 {
-	sf::WindowSettings Settings; //skapa ett SFML fönster
-	Settings.AntialiasingLevel = AAlevel;
+	
+	sf::ContextSettings  Settings; //skapa ett SFML fönster
+	Settings.antialiasingLevel = AAlevel;
 	window = new sf::RenderWindow(sf::VideoMode(windowWidth, windowHeight, 32), "Forever Alone", sf::Style::Close, Settings);
 	
 	
 	view = new sf::View(sf::FloatRect(0, 0, windowWidth, windowHeight));
-	view->SetCenter(windowWidth / 2, windowHeight / 2);
-	window->SetView(*view);
+	view->setCenter(windowWidth / 2, windowHeight / 2);
+	window->setView(*view);
 }
 
 void Core::execute()
@@ -63,7 +64,7 @@ void Core::execute()
 		std::cout << "Couldn't open the file DATA.resf" << std::endl;
 	}
 
-	sf::Image tjejImg = res.getImage("data\\tjej.png");
+	sf::Texture tjejImg = res.getImage("data\\tjej.png");
 	dynamic_cast<SpriteComponent*>(girl.get("SpriteComponent"))->setImage(tjejImg);
 	girl.position().x = windowWidth/2 - dynamic_cast<SpriteComponent*>(girl.get("SpriteComponent"))->size().x / 2;
 	girl.position().y = (windowHeight/2 - dynamic_cast<SpriteComponent*>(girl.get("SpriteComponent"))->size().y / 2) + 300;
@@ -81,7 +82,7 @@ void Core::execute()
 	playerHealth.setFont(res.getFont("data\\arial.ttf"));
 	playerHealth.setPosition(0, 0);
 
-	sf::Image gubbeImg = res.getImage("data\\gubbe.png");
+	sf::Texture gubbeImg = res.getImage("data\\gubbe.png");
 	dynamic_cast<SpriteComponent*>(player.get("SpriteComponent"))->setImage(gubbeImg);
 	player.position().x = windowWidth/2 - dynamic_cast<SpriteComponent*>(player.get("SpriteComponent"))->size().x / 2;
 	player.position().y = windowHeight/2 - dynamic_cast<SpriteComponent*>(player.get("SpriteComponent"))->size().y / 2;
@@ -89,7 +90,7 @@ void Core::execute()
 
 	Entity goalLine;
 	goalLine.add(new SpriteComponent(&goalLine));
-	sf::Image goalImg = res.getImage("data\\goal.png");
+	sf::Texture goalImg = res.getImage("data\\goal.png");
 	dynamic_cast<SpriteComponent*>(goalLine.get("SpriteComponent"))->setImage(goalImg);
 	goalLine.position().x = 20000;
 	goalLine.position().y = (windowHeight/2 - dynamic_cast<SpriteComponent*>(goalLine.get("SpriteComponent"))->size().y / 2) + 300;
@@ -98,7 +99,7 @@ void Core::execute()
 	Entity startButton;
 	startButton.add(new SpriteComponent(&startButton));
 	startButton.add(new ClickableComponent(&startButton));
-	sf::Image startImg = res.getImage("data\\startbutton.png");
+	sf::Texture startImg = res.getImage("data\\startbutton.png");
 	dynamic_cast<SpriteComponent*>(startButton.get("SpriteComponent"))->setImage(startImg);
 	startButton.position().x = 200;
 	startButton.position().y = 300;
@@ -110,7 +111,7 @@ void Core::execute()
 	std::vector<Entity*> stoneList;
 	
 	srand(time(0));
-	sf::Image stoneImg = res.getImage("data\\stone.png");
+	sf::Texture stoneImg = res.getImage("data\\stone.png");
 	for(int i = 0; i < 20; i++)
 	{
 		Entity *stone = new Entity();
@@ -137,17 +138,17 @@ void Core::execute()
 	debugText.setFont(res.getFont("data\\arial.ttf"));
 	debugText.setPosition(300, 300);
 
-	
+	//sf::Clock clock;
 	
 
 	bool started = false;		
-	while ( window->IsOpened() )
+	while ( window->isOpen() )
 	{
 
 		while(!started)
 		{
-					window->Display();
-					startButton.update(window->GetFrameTime(), *window);
+					window->display();
+					startButton.update(ticks.getElapsedTime().asMilliseconds(), *window);
 					if(dynamic_cast<ClickableComponent*>(startButton.get("ClickableComponent"))->getState())
 					{
 						started = true;
@@ -161,25 +162,25 @@ void Core::execute()
 		MovableComponent* player_movement = dynamic_cast<MovableComponent*>(player.get("MovableComponent"));
 	
 		sf::Event frameEvent;
-		while ( window->GetEvent(frameEvent) )
+		while ( window->pollEvent(frameEvent) )
 		{
 			// If the window is asked to be closed, close it
-			if ( frameEvent.Type == sf::Event::Closed )
-				window->Close();
+			if ( frameEvent.type == sf::Event::Closed )
+				window->close();
 
-			if(frameEvent.Type == sf::Event::KeyPressed) {
-				if(frameEvent.Key.Code == sf::Key::A) {
+			if(frameEvent.type == sf::Event::KeyPressed) {
+				if(frameEvent.key.code == sf::Keyboard::A) {
 					player_movement->setMoveLeft(true);
 				}
-				if(frameEvent.Key.Code == sf::Key::D) {
+				if(frameEvent.key.code == sf::Keyboard::D) {
 					player_movement->setMoveRight(true);					
 				}
-				if(frameEvent.Key.Code == sf::Key::Space) {
+				if(frameEvent.key.code == sf::Keyboard::Space) {
 					if(!player_movement->jumping && !player_movement->jumpingPhaseTwo)
 						player_movement->jumping = true;
 				}
 
-				if(frameEvent.Key.Code == sf::Key::Z)
+				if(frameEvent.key.code == sf::Keyboard::Z)
 				{
 					std::ofstream saveFile;
 					saveFile.open("save.sav");
@@ -200,7 +201,7 @@ void Core::execute()
 				}
 
 
-				if(frameEvent.Key.Code == sf::Key::X)
+				if(frameEvent.key.code == sf::Keyboard::X)
 				{
 					std::string line;
 					std::ifstream saveFile ("save.sav", std::ios::app);
@@ -226,44 +227,45 @@ void Core::execute()
 
 			}
 			// Close the window if the user presses the 'escape'-key
-			if ( frameEvent.Type == sf::Event::KeyReleased )
+			if ( frameEvent.type == sf::Event::KeyReleased )
 			{
-				if(frameEvent.Key.Code == sf::Key::A) {
+				if(frameEvent.key.code == sf::Keyboard::A) {
 					player_movement->setMoveLeft(false);
 
 				}
-				if(frameEvent.Key.Code == sf::Key::D) {
+				if(frameEvent.key.code == sf::Keyboard::D) {
 					player_movement->setMoveRight(false);
 
 				}				
 
-				if(frameEvent.Key.Code == sf::Key::Space) {
+				if(frameEvent.key.code == sf::Keyboard::Space) {
 					
 				}
 
 				
-				if ( frameEvent.Key.Code == sf::Key::Escape )
-					window->Close();
+				if ( frameEvent.key.code == sf::Keyboard::Escape )
+					window->close();
 			}
-		
+			
 		}
 		// Clear the screen to black.
-		window->Clear(sf::Color(152, 217, 234));
-	
-		view->SetCenter(player.position().x, player.position().y);
+		window->clear(sf::Color(152, 217, 234));
+		
+		//view->setCenter(player.position().x, player.position().y);
+		view->move(view->getCenter() - player.position());
 		//Update
 		
 		
 
 			
-			int t = ticks.GetElapsedTime();	
-			if((t - lastTick) > 0.25f)	{
+			int t = ticks.getElapsedTime().asMilliseconds();	
+			if((t - lastTick) > 0.25f)	{	
 				
 				
 			for(int i = 0; i < stoneList.size(); i++)
 			{
 
-				if(stoneList[i]->position().x > (view->GetCenter().x - (windowWidth / 2)) && stoneList[i]->position().x < (view->GetCenter().x + (windowWidth/2)))
+				if(stoneList[i]->position().x > (view->getCenter().x - (windowWidth / 2)) && stoneList[i]->position().x < (view->getCenter().x + (windowWidth/2)))
 				{
 				
 					if(stoneList[i]->position().x > player.position().x && stoneList[i]->position().x < (player.position().x + dynamic_cast<SpriteComponent*>(player.get("SpriteComponent"))->getSpriteWidth()) &&
@@ -293,7 +295,7 @@ void Core::execute()
 					}*/
 				
 				}
-				lastTick = ticks.GetElapsedTime();	
+				lastTick = ticks.getElapsedTime().asMicroseconds();	
 	
 				}
 				
@@ -303,7 +305,7 @@ void Core::execute()
 			}
 
 			for(int i = 0; i < stoneList.size(); i++)
-				stoneList[i]->update(window->GetFrameTime(), *window);
+				stoneList[i]->update(ticks.getElapsedTime().asMilliseconds(), *window);
 
 
 		//ui.update(*window, *view);
@@ -329,7 +331,7 @@ void Core::execute()
 		debugText.update(*window, *view);
 		//window->Draw(ui.getText());
 		
-		goalLine.update(window->GetFrameTime(), *window);
+		goalLine.update(ticks.getElapsedTime().asMilliseconds(), *window);
 		
 
 		if(girlSprint)
@@ -342,8 +344,8 @@ void Core::execute()
 			dynamic_cast<MovableComponent*>(player.get("MovableComponent"))->speed() = 0.5f;
 			girl.position().x += 0.4f;
 		}
-		player.update(window->GetFrameTime(), *window);
-		girl.update(window->GetFrameTime(), *window);
+		player.update(ticks.getElapsedTime().asMilliseconds(), *window);
+		girl.update(ticks.getElapsedTime().asMilliseconds(), *window);
 		
 		
 		// on ending.
@@ -354,8 +356,8 @@ void Core::execute()
 			gameOverUi.write("You died by stepping on too many rocks!\nThat girl you raced are also dead because of you.. :'(");
 			gameOverUi.setPosition(50, 100);
 			gameOverUi.update(*window, *view);
-			window->Display();
-			sf::Sleep(3.0f);
+			window->display();
+			sf::sleep(sf::seconds(3));
 			break;
 		}
 
@@ -366,8 +368,8 @@ void Core::execute()
 			gameOverUi.write("You won! GZ..");
 			gameOverUi.setPosition(50, 100);
 			gameOverUi.update(*window, *view);
-			window->Display();
-			sf::Sleep(3.0f);
+			window->display();
+			sf::sleep(sf::seconds(3));
 			break;
 		}
 		
@@ -379,13 +381,15 @@ void Core::execute()
 			gameOverUi.write("You lost! :'(");
 			gameOverUi.setPosition(50, 100);
 			gameOverUi.update(*window, *view);
-			window->Display();
-			sf::Sleep(3.0f);
+			window->display();
+			sf::sleep(sf::seconds(3));
 			break;
 		}
 		
 		// Flip the back-buffer with the front-buffer.
-		window->Display();
+		window->display();
+
+		//clock.restart();
 	}
 }
 

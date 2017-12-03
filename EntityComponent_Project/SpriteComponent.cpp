@@ -7,31 +7,32 @@ void SpriteComponent::update(float deltaTime, sf::RenderWindow* window)
 {
 	if( _parent != nullptr )
 	{
-		_sprite.SetPosition(_parent->position());
+		_sprite.setPosition(_parent->position());
 	}
 }
 
 void SpriteComponent::draw(sf::RenderWindow& target)
 {
-	target.Draw(_sprite);
+	target.draw(_sprite);
 }
 
 void SpriteComponent::changeImageCenterToOrigin(int imgW, int imgH)
 {
-	_sprite.SetCenter(imgW/2, imgH/2);
+	
+	_sprite.setOrigin(imgW/2, imgH/2);
 }
 
 void SpriteComponent::rotateImage(float angle)
 {
-	_sprite.Rotate(angle);
+	_sprite.rotate(angle);
 }
 
 int SpriteComponent::getSpriteWidth()
 {
-	return _sprite.GetImage()->GetWidth();
+	return _sprite.getTexture()->getSize().x;
 }
 
 int SpriteComponent::getSpriteHeight()
 {
-	return _sprite.GetImage()->GetHeight();
+	return _sprite.getTexture()->getSize().y;
 }

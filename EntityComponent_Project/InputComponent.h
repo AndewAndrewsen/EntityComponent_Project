@@ -2,8 +2,8 @@
 
 #include "Component.h"
 
-#include <SFML\Window\Input.hpp>
-#include <SFML\graphics.hpp>
+#include <SFML/Window/Keyboard.hpp>
+#include <SFML/graphics.hpp>
 
 class InputComponent : public Component
 {
@@ -12,10 +12,10 @@ public:
 	  Component(parent) 
 	  {
 		  _name = "InputComponent";
-		  input = new sf::Input();
+		  input = new sf::Keyboard();
 	  }
-	sf::Input *input;
-	sf::Key::Code keyCode;
+	sf::Keyboard *input;
+	sf::Keyboard::Key keyCode;
 	void takeInput(sf::RenderWindow* window);
 	void update(float deltaTime);
 

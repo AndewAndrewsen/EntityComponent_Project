@@ -15,7 +15,7 @@ public:
 		if ( itr == _images.end() )
 		{
 			sf::Image img;
-			img.LoadFromFile(filename);
+			img.loadFromFile(filename);
 			_images.insert(std::make_pair(filename, img));
 			return _images[filename];
 		}

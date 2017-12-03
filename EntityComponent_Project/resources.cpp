@@ -120,13 +120,13 @@ bool resources::get_file(	const std::string& filename,
 
 }
 
-sf::Image resources::getImage(std::string name)
+sf::Texture resources::getImage(std::string name)
 {
 	char* data = nullptr;
 	unsigned int length;
 	
 	
-	sf::Image *retImage = new sf::Image();
+	sf::Texture *retImage = new sf::Texture();
 	if( _stream.is_open() )
 	{
 		for( unsigned int i = 0; i < _files.size(); i++ )
@@ -141,7 +141,7 @@ sf::Image resources::getImage(std::string name)
 
 				_stream.read(data, length);
 				
-				retImage->LoadFromMemory(data, length);//length);
+				retImage->loadFromMemory(data, length);//length);
 				//retImage->SaveToFile("hehe.png");
 				return *retImage;
 			}
@@ -172,7 +172,7 @@ sf::Font resources::getFont(std::string name)
 
 				_stream.read(data, length);
 				
-				retFont->LoadFromMemory(data, length);//length);
+				retFont->loadFromMemory(data, length);//length);
 				//retImage->SaveToFile("hehe.png");
 				return *retFont;
 			}

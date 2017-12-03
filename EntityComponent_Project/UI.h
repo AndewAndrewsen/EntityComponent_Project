@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
 #include "resources.h"
 
 class UI : public resources
@@ -16,7 +16,7 @@ public:
 
 private:
 	sf::Font font;
-	sf::String text;
+	sf::Text text; 
 	int size;
 	int posX;
 	int posY;

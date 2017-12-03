@@ -4,7 +4,7 @@
 #include <string>
 #include <fstream>	
 #include <vector>
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
 
 class resources
 {
@@ -18,7 +18,7 @@ public:
 	std::vector<std::string> files();
 
 	bool get_file(const std::string& filename, char*& data, unsigned int& length);
-	sf::Image getImage(std::string name);
+	sf::Texture getImage(std::string name);
 	sf::Font getFont(std::string name);
 
 private:
